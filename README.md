@@ -10,6 +10,10 @@ draws a `THREE.LineSegments` child mesh for every outlined face.  A small
 perspective-correct depth bias in the vertex shader prevents z-fighting against
 the solid triangle geometry.
 
+Demo see https://bertt.github.io/3dtilesrenderer-outline-plugin/sample/sibbe/
+
+<img width="1906" height="1050" alt="image" src="https://github.com/user-attachments/assets/e2c3b549-53ed-46b9-b713-125c2e1d5d1a" />
+
 ## Requirements
 
 - Three.js r154 or later (requires `GLTFParser.associations`)
