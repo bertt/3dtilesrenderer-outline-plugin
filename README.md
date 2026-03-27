@@ -27,6 +27,8 @@ Demo see https://bertt.github.io/3dtilesrenderer-outline-plugin/sample/sibbe/
 npm install @bertt/3dtilesrenderer-outline-plugin
 ```
 
+Npm package: https://www.npmjs.com/package/@bertt/3dtilesrenderer-outline-plugin
+
 Or copy `src/GLTFCesiumPrimitiveOutlineExtension.js` directly into your project.
 
 ## Usage
