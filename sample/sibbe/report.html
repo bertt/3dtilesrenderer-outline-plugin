@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="language" content="en" />
+  <title>Review – Sibbe 3D Buildings</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f4f6f9; color: #222;
+    }
+    header {
+      background: #1a202c; color: #fff;
+      padding: 24px 32px 20px;
+    }
+    header h1 { margin: 0 0 6px; font-size: 1.6rem; }
+    header p  { margin: 0; color: #a0aec0; font-size: 0.95rem; }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+
+    section { margin-bottom: 40px; }
+    h2 {
+      font-size: 1.15rem; font-weight: 600;
+      border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-top: 0;
+    }
+
+    .preview-frame {
+      width: 100%; height: 500px; border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      display: block;
+    }
+    .preview-note {
+      font-size: 0.8rem; color: #718096; margin-top: 8px;
+    }
+
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.9rem; background: #fff;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    }
+    th {
+      background: #2d3748; color: #fff;
+      padding: 10px 14px; text-align: left; font-weight: 500;
+    }
+    td { padding: 9px 14px; border-bottom: 1px solid #edf2f7; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #f7fafc; }
+
+    .badge {
+      display: inline-block; padding: 2px 8px;
+      border-radius: 12px; font-size: 0.78rem; font-weight: 600;
+    }
+    .badge-green  { background: #c6f6d5; color: #276749; }
+    .badge-yellow { background: #fefcbf; color: #744210; }
+    .badge-blue   { background: #bee3f8; color: #2a69ac; }
+
+    .card {
+      background: #fff; border-radius: 8px;
+      padding: 16px 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+      margin-bottom: 16px;
+    }
+    .card h3 { margin: 0 0 8px; font-size: 1rem; }
+    .card p  { margin: 0; font-size: 0.9rem; color: #4a5568; line-height: 1.6; }
+
+    code {
+      background: #edf2f7; padding: 2px 6px;
+      border-radius: 4px; font-size: 0.85rem; font-family: monospace;
+    }
+
+    .warning-box {
+      background: #fffbeb; border: 1px solid #f6e05e;
+      border-radius: 8px; padding: 14px 18px;
+      font-size: 0.9rem; line-height: 1.6;
+    }
+    .warning-box strong { color: #744210; }
+
+    footer {
+      text-align: center; color: #a0aec0;
+      font-size: 0.8rem; padding: 24px;
+      border-top: 1px solid #e2e8f0;
+    }
+    a { color: #3182ce; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏠 Sibbe 3D Buildings &mdash; Review</h1>
+  <p>MapLibre GL JS · OpenFreeMap vector tiles · Mapterhorn terrain · 3D Tiles (BAG buildings Sibbe) · CESIUM_primitive_outline</p>
+</header>
+
+<div class="container">
+
+  <!-- Live preview -->
+  <section>
+    <h2>Live preview</h2>
+    <iframe
+      class="preview-frame"
+      src="index.html"
+      title="Sibbe 3D Buildings"
+      loading="lazy"
+      allow="fullscreen">
+      <p>Iframe not supported. <a href="index.html">Open directly</a>.</p>
+    </iframe>
+    <p class="preview-note">
+      Full page: <a href="index.html" target="_blank">open index.html ↗</a>
+    </p>
+  </section>
+
+  <!-- Features -->
+  <section>
+    <h2>Features</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>OpenFreeMap vector tiles</strong></td>
+          <td><span class="badge badge-green">✓ Done</span></td>
+          <td>Liberty style via <code>tiles.openfreemap.org</code> as base map</td>
+        </tr>
+        <tr>
+          <td><strong>Mapterhorn terrain</strong></td>
+          <td><span class="badge badge-green">✓ Done</span></td>
+          <td>Raster-DEM + hillshade via <code>tiles.mapterhorn.com</code>, exaggeration 1×</td>
+        </tr>
+        <tr>
+          <td><strong>3D Tiles buildings Sibbe</strong></td>
+          <td><span class="badge badge-green">✓ Done</span></td>
+          <td>Three.js custom layer, <code>TilesRenderer</code> with ECEF→Mercator transform. <code>ImplicitTilingPlugin</code> registered for 3D Tiles 1.1 implicit tiling (QUADTREE, 3 levels)</td>
+        </tr>
+        <tr>
+          <td><strong>Click buildings for attributes</strong></td>
+          <td><span class="badge badge-green">✓ Done</span></td>
+          <td>Raycast via <code>THREE.Raycaster</code> + <code>tilesCamera</code>; attributes via <code>GLTFMeshFeaturesExtension</code> / <code>GLTFStructuralMetadataExtension</code> (<code>EXT_structural_metadata</code> / <code>EXT_mesh_features</code>); selected building highlighted in orange via feature-ID shader overlay</td>
+        </tr>
+        <tr>
+          <td><strong>Building outlines (CESIUM_primitive_outline)</strong></td>
+          <td><span class="badge badge-green">✓ Done</span></td>
+          <td>Black outlines on all buildings via <code>GLTFCesiumPrimitiveOutlineExtension</code>.
+            Edge indices embedded in the glTF by pg2b3dm <code>--add_outlines true</code>.
+            Depth-fighting prevented by a perspective-correct vertex-shader bias (<code>clip.z -= 0.0002 * clip.w</code>).</td>
+        </tr>
+        <tr>
+          <td><strong>GitHub Pages compatible</strong></td>
+          <td><span class="badge badge-green">✓ Done</span></td>
+          <td>No server or build tool required; relative paths; all dependencies via CDN</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Click functionality -->
+  <section>
+    <h2>Clicking buildings – implementation</h2>
+    <div class="card">
+      <h3>How it works</h3>
+      <p>
+        Clicking a building fires a <code>THREE.Raycaster</code> against <code>tiles.group</code>
+        using <code>tilesCamera</code> (which has properly separated projection and view matrices,
+        kept in sync with MapLibre every frame). The hit returns a <code>faceIndex</code> and
+        world-space point, from which barycentric coordinates are computed.
+        <code>meshFeatures.getFeatures(faceIndex, barycoord)</code> from
+        <code>EXT_mesh_features</code> yields the feature ID, which is used to look up
+        all BAG attributes via <code>structuralMetadata.getPropertyTableData(tableIndex, featureId)</code>
+        from <code>EXT_structural_metadata</code>.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Building selection highlight</h3>
+      <p>
+        The selected building is highlighted in orange using a <code>THREE.ShaderMaterial</code>
+        overlay mesh that reads the <code>_feature_id_0</code> vertex attribute and
+        <code>discard</code>s any fragment whose feature ID does not match the selected one.
+        This means only the geometry of the selected building is rendered in the overlay,
+        even though the whole tile mesh is reused as a geometry source.
+        Polygon offset (<code>factor -2, units -2</code>) prevents z-fighting with the original mesh.
+      </p>
+    </div>
+  </section>
+
+  <!-- Technical stack -->
+  <section>
+    <h2>Technical stack</h2>
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Version</th><th>CDN</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MapLibre GL JS</td>
+          <td>5.21.1</td>
+          <td><code>unpkg.com/maplibre-gl@5.21.1</code></td>
+        </tr>
+        <tr>
+          <td>Three.js</td>
+          <td>0.183.0</td>
+          <td><code>cdn.jsdelivr.net/npm/three@0.183.0</code></td>
+        </tr>
+        <tr>
+          <td>3d-tiles-renderer</td>
+          <td>0.4.23</td>
+          <td><code>cdn.jsdelivr.net/npm/3d-tiles-renderer@0.4.23</code></td>
+        </tr>
+        <tr>
+          <td>Draco decoder</td>
+          <td>via Three.js</td>
+          <td><code>unpkg.com/three@0.183.0/…/draco/</code></td>
+        </tr>
+        <tr>
+          <td>KTX2 / Basis loader</td>
+          <td>via Three.js</td>
+          <td><code>unpkg.com/three@0.183.0/…/basis/</code></td>
+        </tr>
+        <tr>
+          <td>OpenFreeMap style</td>
+          <td>liberty</td>
+          <td><code>tiles.openfreemap.org/styles/liberty</code></td>
+        </tr>
+        <tr>
+          <td>Mapterhorn terrain DEM</td>
+          <td>&mdash;</td>
+          <td><code>tiles.mapterhorn.com/tilejson.json</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Dataset -->
+  <section>
+    <h2>3D Tiles dataset (Sibbe)</h2>
+    <table>
+      <thead>
+        <tr><th>Property</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Generator</td><td><code>pg2b3dm 2.27.0.0</code></td></tr>
+        <tr><td>3D Tiles version</td><td>1.1</td></tr>
+        <tr><td>Tiling scheme</td><td>Implicit QUADTREE, 3 levels, subtrees at level 0</td></tr>
+        <tr><td>Content files</td><td><code>1_0_0.glb</code>, <code>1_0_1.glb</code>, <code>1_1_1.glb</code></td></tr>
+        <tr><td>Total features</td><td>676 + 244 + 86 = 1 006 buildings</td></tr>
+        <tr><td>ECEF translation</td><td>[4 014 073.5, 410 267.5, 4 923 026.0] m</td></tr>
+        <tr><td>Location</td><td>Sibbe, municipality of Valkenburg, Limburg (NL)</td></tr>
+        <tr><td>Metadata extensions</td><td><code>EXT_mesh_features</code>, <code>EXT_structural_metadata</code></td></tr>
+        <tr><td>Available attributes</td><td><code>identificatie</code> (BAG building ID)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Architecture -->
+  <section>
+    <h2>Architecture notes</h2>
+    <div class="card">
+      <h3>No frameworks, no build tool</h3>
+      <p>
+        The page uses <code>&lt;script type="importmap"&gt;</code> to load ES modules
+        directly from CDN. No npm, webpack, or bundler is needed.
+        The result is a single self-contained HTML file that can be deployed to GitHub Pages
+        by simply committing it.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Terrain + vector tiles combination</h3>
+      <p>
+        OpenFreeMap provides the full vector tile style (buildings, roads, labels).
+        After the style loads (<code>style.load</code>), the Mapterhorn raster-DEM source
+        is added dynamically along with a hillshade layer and <code>map.setTerrain()</code>.
+        This combines the rich OpenFreeMap style with 3D terrain exaggeration.
+      </p>
+    </div>
+    <div class="card">
+      <h3>GLTFExtensionsPlugin replaced by manual loader setup</h3>
+      <p>
+        The built-in <code>GLTFExtensionsPlugin</code> is replaced with a manually configured
+        <code>GLTFLoader</code> registered on <code>tiles.manager</code>. This is the pattern
+        recommended by 3DTilesRendererJS for cases where additional GLTF loader plugins are needed
+        alongside the standard extensions. The loader registers
+        <code>GLTFMeshFeaturesExtension</code>, <code>GLTFStructuralMetadataExtension</code>,
+        <code>GLTFCesiumRTCExtension</code>, and <code>GLTFCesiumPrimitiveOutlineExtension</code>
+        on the same loader instance. DRACO and KTX2 loaders are configured on the
+        <code>GLTFLoader</code> directly.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Building outlines — GLTFCesiumPrimitiveOutlineExtension</h3>
+      <p>
+        The 3D Tiles were generated with <code>pg2b3dm --add_outlines true</code>, which embeds
+        the <code>CESIUM_primitive_outline</code> glTF extension in every tile primitive.
+        The extension stores an accessor with pairs of vertex indices — one pair per edge to draw.
+        <code>GLTFCesiumPrimitiveOutlineExtension</code> reads these indices in its
+        <code>afterRoot</code> hook via <code>parser.associations</code> (to map
+        <code>THREE.Mesh</code> objects back to their glTF JSON primitive definitions) and
+        <code>parser.loadAccessor</code>. It creates a <code>THREE.LineSegments</code> child for
+        each outlined mesh, sharing the parent position buffer and using a shader that applies
+        a perspective-correct depth bias (<code>clip.z -= 0.0002 * clip.w</code>) to prevent
+        z-fighting with the solid faces.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Implicit tiling (3D Tiles 1.1)</h3>
+      <p>
+        The Sibbe tileset uses implicit tiling with template URIs
+        (<code>content/{level}_{x}_{y}.glb</code>). Without registering the
+        <code>ImplicitTilingPlugin</code>, the 3d-tiles-renderer would request the
+        literal template string as a URL. The plugin resolves tile coordinates into
+        actual file paths before fetching.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Shared WebGL context</h3>
+      <p>
+        Three.js shares the WebGL context with MapLibre via <code>renderingMode: "3d"</code>.
+        The MapLibre projection and view matrices are synchronised to the Three.js camera
+        every frame. <code>TilesRenderer</code> automatically manages tile loading and
+        unloading based on the current viewpoint.
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Generated for review &middot; <a href="index.html">Go to map</a>
+</footer>
+
+</body>
+</html>

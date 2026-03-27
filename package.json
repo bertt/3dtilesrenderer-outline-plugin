@@ -1,0 +1,42 @@
+{
+  "name": "3dtilesrenderer-outline-plugin",
+  "version": "1.0.0",
+  "description": "Three.js GLTFLoader plugin for rendering CESIUM_primitive_outline edges on 3D Tiles models",
+  "type": "module",
+  "main": "./src/GLTFCesiumPrimitiveOutlineExtension.js",
+  "module": "./src/GLTFCesiumPrimitiveOutlineExtension.js",
+  "exports": {
+    ".": {
+      "import": "./src/GLTFCesiumPrimitiveOutlineExtension.js",
+      "default": "./src/GLTFCesiumPrimitiveOutlineExtension.js"
+    }
+  },
+  "files": [
+    "src/"
+  ],
+  "keywords": [
+    "3d-tiles",
+    "3d-tiles-renderer",
+    "gltf",
+    "cesium",
+    "outline",
+    "webgl",
+    "three",
+    "threejs",
+    "maplibre",
+    "pg2b3dm"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "three": ">=0.154.0"
+  },
+  "devDependencies": {
+    "three": "^0.183.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bertt/3dtilesrenderer-outline-plugin"
+  },
+  "homepage": "https://github.com/bertt/3dtilesrenderer-outline-plugin#readme"
+}
