@@ -24,7 +24,7 @@ Demo see https://bertt.github.io/3dtilesrenderer-outline-plugin/sample/sibbe/
 ## Installation
 
 ```
-npm install 3dtilesrenderer-outline-plugin
+npm install @bertt/3dtilesrenderer-outline-plugin
 ```
 
 Or copy `src/GLTFCesiumPrimitiveOutlineExtension.js` directly into your project.
@@ -212,7 +212,7 @@ The package uses `"type": "module"` and native ES module exports.  Bundlers
 To publish a scoped package:
 ```json
 {
-  "name": "@yourorg/3dtilesrenderer-outline-plugin"
+  "name": "@bertt/3dtilesrenderer-outline-plugin"
 }
 ```
 
