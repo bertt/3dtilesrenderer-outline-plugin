@@ -18,8 +18,6 @@ The library has been adopted in a range of web mapping and visualisation context
 
 **BabylonJS** is a game-oriented 3D engine. The `3d-tiles-renderer` package has a BabylonJS adapter that wraps the core rendering logic. Developers who have existing BabylonJS scenes can load 3D Tiles into them without switching rendering engines.
 
-**Cesium Ion** content can be streamed through the library using the `CesiumIonAuthPlugin`. This means assets hosted on Cesium Ion — terrain, photogrammetry, city models — become accessible from any Three.js application, not only from CesiumJS.
-
 **Giro3D** uses 3DTilesRendererJS internally to handle 3D Tiles layers. Giro3D is a GIS-focused visualisation library built on Three.js that supports local coordinate reference systems, which is useful for Dutch datasets that use the RD New projection.
 
 In all these cases, the core rendering logic is the same. Only the outer integration layer changes.
@@ -228,7 +226,7 @@ Without a plugin system, adding features like authentication, fade transitions, 
 
 The GLTF loader plugin surface opens an additional dimension: the raw bytes of each tile's content become accessible. Any encoding that a glTF extension can express — outline edges, structural metadata, instanced meshes, custom materials — can be interpreted and rendered by a plugin that nobody on the core team anticipated.
 
-This is where the approach becomes useful beyond the standard use cases. A team building a wind-turbine inspection tool might add a plugin that reads custom blade-condition metadata. A mapping platform might add a plugin that recolours buildings by energy label at load time. A developer working with Dutch BAG data might add outline rendering from edges pre-computed by pg2b3dm. None of these were designed into the library. The plugin system made them straightforward to add.
+This is where the approach becomes useful beyond the standard use cases. A team building a wind-turbine inspection tool might add a plugin that reads custom blade-condition metadata. A mapping platform might add a plugin that recolours buildings by energy label at load time. None of these were designed into the library. The plugin system made them straightforward to add.
 
 ### Publishing a Plugin as an npm Package
 
