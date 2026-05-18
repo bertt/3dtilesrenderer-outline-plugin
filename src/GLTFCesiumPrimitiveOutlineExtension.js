@@ -71,8 +71,11 @@ export class GLTFCesiumPrimitiveOutlineExtension {
 			const color = new THREE.Color( options.outlineColor ?? 0x000000 );
 
 			// Shader material with a perspective-correct depth bias.
-			// clipPos.w equals the view-space depth, so subtracting a fraction of it
-			// pushes the lines uniformly toward the camera regardless of viewing distance.
+			// Subtracting a small fraction of clip.w shifts the lines toward the camera
+			// in a perspective-correct way (equivalent to a constant NDC depth offset).
+			// Keep the constant small: at large distances NDC depth precision collapses,
+			// so an overly large bias pushes distant outlines in front of nearby solid
+			// geometry and produces vertical-line overdraw artefacts on far buildings.
 			this._material = new THREE.ShaderMaterial( {
 				uniforms: {
 					diffuse: { value: color },
@@ -81,7 +84,8 @@ export class GLTFCesiumPrimitiveOutlineExtension {
 					void main() {
 						vec4 clip = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 						// Perspective-correct depth bias — prevents z-fighting with solid faces.
-						clip.z -= 0.0002 * clip.w;
+						// 0.00005 avoids the overdraw artefacts that 0.0002 caused at distance.
+						clip.z -= 0.00005 * clip.w;
 						gl_Position = clip;
 					}
 				`,
